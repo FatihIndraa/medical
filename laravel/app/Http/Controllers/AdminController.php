@@ -16,18 +16,17 @@ class AdminController extends Controller
     }
     public function admin()
     {
-        echo "halo admin";
-        echo "<br> <a href='/logout'>logout</a>";
+        return view('admin');
     }
     public function dokter()
     {
-        echo "halo dokter";
-        echo "<br> <a href='/logout'>logout</a>";
+        return view('admin');
+
     }
     public function pasien()
     {
-        echo "halo pasien";
-        echo "<br> <a href='/logout'>logout</a>";
+        return view('admin');
+
     }
 
     /**
