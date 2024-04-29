@@ -30,12 +30,8 @@ class UserSeeder extends Seeder
             'name' => 'dokter',
             'email' => 'dokter@dokter.com',
             'role' => 'dokter',
-            'password' => bcrypt('password'),
-        ]
+            'password' => bcrypt('password')
+        ],
        ];
-
-       foreach ($userData as $user) {
-           User::create($user);
-       }
     }
 }
