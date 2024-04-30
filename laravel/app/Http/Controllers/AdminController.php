@@ -9,11 +9,6 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        echo "halo ";
-        echo "<br> <a href='/logout'>logout</a>";
-    }
     public function admin()
     {
         return view('index');
