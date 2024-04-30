@@ -18,6 +18,11 @@ class UserController extends Controller
             'active' => 'register'
         ]);
     }
+    public function dataPasien()
+    {
+        $users = User::all();
+        return view('dashboard.data-pasien', compact('users'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -43,7 +48,7 @@ class UserController extends Controller
         User::create($validatedData);
 
         // $request->session()->flash('success', 'Registration Successful!! Please Login');
-        return redirect('/login')->with('success', 'Registration Successful!! Please Login');
+        return redirect('/')->with('success', 'Registration Successful!! Please Login');
     }
 
     /**

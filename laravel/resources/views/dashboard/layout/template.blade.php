@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/home" class="nav-link align-middle px-0">
+                            <a href="/" class="nav-link align-middle px-0">
                                 <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
                             </a>
                         </li>
@@ -35,8 +35,8 @@
                         {{-- authentikasi user start --}}
                         @auth('operators')
                             <li>
-                                <a href="/" class="nav-link px-0 align-middle">
-                                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Tambah
+                                <a href="/dashboard/data-pasien" class="nav-link px-0 align-middle">
+                                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Data
                                         Pasien</span></a>
                             </li>
                             <li>

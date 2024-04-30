@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::get('/login',[AuthController::class,'login'])->name('login');
@@ -31,9 +31,10 @@ Route::post('/register', [UserController::class, 'store'])->name('register');
 Route::get('/logout',[AuthController::class,'logout']);
 
 Route::middleware(['userAkses'])->group(function(){
-    Route::get('/home', function(){
+    Route::get('/', function(){
         return view('dashboard.index');
     })->middleware('auth:dokters,web,operators');
 
     Route::get('/dashboard/data-dokter', [DokterController::class, 'dataDokter'])->name('dashboard.data-dokter');
+    Route::get('/dashboard/data-pasien', [UserController::class, 'dataPasien'])->name('dashboard.data-pasien');
 });

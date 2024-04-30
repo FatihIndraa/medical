@@ -23,17 +23,17 @@ class AuthController extends Controller
         if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect('home');
+            return redirect('');
         }
         if (Auth::guard('dokters')->attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect('home');
+            return redirect('');
         }
         if (Auth::guard('operators')->attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect('home');
+            return redirect('');
         }
  
         return back()->withErrors([

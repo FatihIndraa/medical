@@ -54,7 +54,7 @@ class DokterController extends Controller
         Dokter::create($validatedData);
 
         // $request->session()->flash('success', 'Registration Successful!! Please Login');
-        return redirect('/home')->with('success', 'Registration Successful!! Please Login');
+        return redirect('/')->with('success', 'Registration Successful!! Please Login');
     }
 
     /**
