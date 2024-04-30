@@ -77,24 +77,7 @@
             <div class="col py-3">
                 <div class="bg-white container-sm col-6 border my-3 rounded px-5 py-3 pb-5">
                     <h1>Halo!!</h1>
-                    <div>Selamat datang di halaman {{ Auth::user()->role }}</div>
-                    <div><a href="/logout" class="btn btn-sm btn-secondary">Logout >></a></div>
-                    <div class="card mt-3 mb-5">
-                        <ul class="list-group list-group-flush">
-                            @if (Auth::user()->role == 'admin')
-                                <li class="list-group-item">Menu admin</li>
-                                <li class="list-group-item">Menu dokter</li>
-                                <li class="list-group-item">Menu pasien</li>
-                            @endif
-                            @if (Auth::user()->role == 'dokter')
-                                <li class="list-group-item">Menu dokter</li>
-                                <li class="list-group-item">Menu pasien</li>
-                            @endif
-                            @if (Auth::user()->role == 'pasien')
-                                <li class="list-group-item">Menu pasien</li>
-                            @endif
-                        </ul>
-                    </div>
+                    <div class="mb-3">Selamat datang di halaman {{ Auth::user()->role }}</div>
                     @if (Auth::user()->role == 'admin')
                         <a href="/dashboard/rekam-medis" class="btn btn-primary mb-2">Tambah Rekam Medis</a>
                     @endif

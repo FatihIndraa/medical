@@ -13,7 +13,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        Artisan::call('migrate:fresh --seed');
         $userData = [
             [
                 'name' => 'Admin',

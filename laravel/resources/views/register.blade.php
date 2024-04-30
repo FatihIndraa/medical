@@ -47,9 +47,9 @@
                                 <select class="form-select @error('kelamin') is-invalid @enderror" name="kelamin"
                                     id="kelamin" required>
                                     <option value="" selected disabled hidden>Pilih Jenis Kelamin</option>
-                                    <option value="Laki-laki" @if (old('kelamin') == 'Laki-laki') selected @endif>
+                                    <option value="L" @if (old('kelamin') == 'L') selected @endif>
                                         Laki-laki</option>
-                                    <option value="Perempuan" @if (old('kelamin') == 'Perempuan') selected @endif>
+                                    <option value="P" @if (old('kelamin') == 'P') selected @endif>
                                         Perempuan</option>
                                 </select>
                                 @error('kelamin')

@@ -43,6 +43,18 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="mb-3"><input
+                                    class="form-control @error('spesialis')
+                                is-invalid
+                            @enderror"
+                                    type="spesialis" name="spesialis" id="spesialis" placeholder="spesialis" required
+                                    value="{{ old('email') }}">
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div class="mb-3">
                                 <select class="form-select @error('kelamin') is-invalid @enderror" name="kelamin"
                                     id="kelamin" required>
