@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dokter;
+use App\Models\Dokter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DokterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+     public function showDokterRegistrationForm()
+    {
+        return view('dashboard.tambah-dokter', [
+            'title' => 'Tambah Dokter',
+            'active' => 'register'
+        ]);
+    }
+
     public function index()
     {
         //
@@ -28,13 +38,24 @@ class DokterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email:dns|unique:users',
+            'password' => 'required|min:5'
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+
+        Dokter::create($validatedData);
+
+        // $request->session()->flash('success', 'Registration Successful!! Please Login');
+        return redirect('/home')->with('success', 'Registration Successful!! Please Login');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(dokter $dokter)
+    public function show(Dokter $dokter)
     {
         //
     }
@@ -42,7 +63,7 @@ class DokterController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(dokter $dokter)
+    public function edit(Dokter $dokter)
     {
         //
     }
@@ -50,7 +71,7 @@ class DokterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, dokter $dokter)
+    public function update(Request $request, Dokter $dokter)
     {
         //
     }
@@ -58,7 +79,7 @@ class DokterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(dokter $dokter)
+    public function destroy(Dokter $dokter)
     {
         //
     }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin</title>
+    <title>dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
@@ -32,12 +32,7 @@
                                     class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                         </li>
                         {{-- authentikasi user start --}}
-                        @if (Auth::user()->role == 'admin')
-                            <li>
-                                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                    <i class="fs-4 bi-speedometer2"></i> <span
-                                        class="ms-1 d-none d-sm-inline">Tindakan</span> </a>
-                            </li>
+                        @auth('operators')
                             <li>
                                 <a href="/" class="nav-link px-0 align-middle">
                                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Tambah
@@ -48,14 +43,14 @@
                                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Tambah
                                         Dokter</span></a>
                             </li>
-                        @endif
-                        @if (Auth::user()->role == 'dokter')
+                        @endauth
+                        @auth('dokters')
                             <li>
                                 <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                                     <i class="fs-4 bi-speedometer2"></i> <span
                                         class="ms-1 d-none d-sm-inline">Tindakan</span> </a>
                             </li>
-                        @endif
+                        @endauth
                         {{-- authentikasi user end --}}
                     </ul>
                     <hr>
@@ -77,10 +72,10 @@
             <div class="col py-3">
                 <div class="bg-white container-sm col-6 border my-3 rounded px-5 py-3 pb-5">
                     <h1>Halo!!</h1>
-                    <div class="mb-3">Selamat datang di halaman {{ Auth::user()->role }}</div>
-                    @if (Auth::user()->role == 'admin')
+                    <div class="mb-3">Selamat datang {{ Auth::user()->name }}</div>
+                    @auth('operators')
                         <a href="/dashboard/rekam-medis" class="btn btn-primary mb-2">Tambah Rekam Medis</a>
-                    @endif
+                    @endauth
                     <div class="table-responsive">
                         <table class="table">
                             <thead class="table-dark">

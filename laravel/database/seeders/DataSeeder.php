@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Dokter;
+use App\Models\Operator;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
 use App\Models\User;
-class UserSeeder extends Seeder
+
+class DataSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,27 +17,34 @@ class UserSeeder extends Seeder
     {
         $userData = [
             [
-                'name' => 'Admin',
-                'email' => 'admin@admin.com',
-                'role' => 'admin',
-                'password' => bcrypt('password'),
-            ],
-            [
                 'name' => 'pasien',
                 'email' => 'pasien@pasien.com',
-                'role' => 'pasien',
                 'password' => bcrypt('password'),
             ],
+        ];
+        $dokterData = [
             [
                 'name' => 'dokter',
                 'email' => 'dokter@dokter.com',
-                'role' => 'dokter',
-                'password' => bcrypt('password')
+                'password' => bcrypt('password'),
+            ],
+        ];
+        $operatorData = [
+            [
+                'name' => 'Admin',
+                'email' => 'admin@admin.com',
+                'password' => bcrypt('password'),
             ],
         ];
         
         foreach ($userData as $key => $value) {
             User::create($value);
+        }
+        foreach ($dokterData as $key => $value) {
+            Dokter::create($value);
+        }
+        foreach ($operatorData as $key => $value) {
+            Operator::create($value);
         }
     }
 }

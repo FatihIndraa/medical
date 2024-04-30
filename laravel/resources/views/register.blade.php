@@ -14,7 +14,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ 'Register' }}</div>
+                    <div class="card-header">Register</div>
 
                     <div class="card-body">
                         <form class="text-center" action="/register" method="post">
@@ -43,21 +43,6 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <select class="form-select @error('kelamin') is-invalid @enderror" name="kelamin"
-                                    id="kelamin" required>
-                                    <option value="" selected disabled hidden>Pilih Jenis Kelamin</option>
-                                    <option value="L" @if (old('kelamin') == 'L') selected @endif>
-                                        Laki-laki</option>
-                                    <option value="P" @if (old('kelamin') == 'P') selected @endif>
-                                        Perempuan</option>
-                                </select>
-                                @error('kelamin')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
                             <div class="mb-3"><input
                                     class="form-control @error('password')
                                 is-invalid
@@ -72,7 +57,7 @@
                             <div class="mb-3"><button class="btn btn-primary d-block w-100"
                                     type="submit">Register</button></div>
                             <p class="text-muted">sudah punya akun?
-                                <a href="{{ '/' }}">login</a>
+                                <a href="login">login</a>
                             </p>
                         </form>
                     </div>

@@ -14,10 +14,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ 'Register' }}</div>
+                    <div class="card-header">Tambah Dokter</div>
 
                     <div class="card-body">
-                        <form class="text-center" action="/register" method="post">
+                        <form class="text-center" action="/dashboard/tambah-dokter" method="post">
                             @csrf
                             <div class="mb-3"><input
                                     class="form-control @error('name')
@@ -44,33 +44,6 @@
                                 @enderror
                             </div>
                             <div class="mb-3"><input
-                                    class="form-control @error('spesialis')
-                                is-invalid
-                            @enderror"
-                                    type="spesialis" name="spesialis" id="spesialis" placeholder="spesialis" required
-                                    value="{{ old('email') }}">
-                                @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <select class="form-select @error('kelamin') is-invalid @enderror" name="kelamin"
-                                    id="kelamin" required>
-                                    <option value="" selected disabled hidden>Pilih Jenis Kelamin</option>
-                                    <option value="Laki-laki" @if (old('kelamin') == 'Laki-laki') selected @endif>
-                                        Laki-laki</option>
-                                    <option value="Perempuan" @if (old('kelamin') == 'Perempuan') selected @endif>
-                                        Perempuan</option>
-                                </select>
-                                @error('kelamin')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3"><input
                                     class="form-control @error('password')
                                 is-invalid
                             @enderror"
@@ -80,13 +53,6 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
-                            <div class="mb-3">
-                                <div class="input-group">
-                                    <span class="input-group-text">Role</span>
-                                    <input type="text" name="role" id="role" class="form-control"
-                                        value="dokter" disabled>
-                                </div>
                             </div>
                             <div class="mb-3"><button class="btn btn-primary d-block w-100"
                                     type="submit">Register</button></div>

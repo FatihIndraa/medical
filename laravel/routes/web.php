@@ -1,28 +1,37 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SesiController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\PasienController;
-use App\Http\Controllers\RekamMedisController;
+use App\Http\Controllers\DokterController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
-Route::middleware(['guest'])->group(function () {
-    Route::get('/', [SesiController::class, 'index'])->name('login');
-    Route::post('/', [SesiController::class,'login']);
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('/home', function(){
-    return redirect('/index');
-});
 
-Route::get('/register', [RegisterController::class,'index'])->middleware('guest');
-Route::post('/register', [RegisterController::class,'store']);
+Route::get('/login',[AuthController::class,'login'])->name('login');
+Route::post('/login', [AuthController::class,'procesLogin']);
+Route::get('/dashboard/tambah-dokter', [DokterController::class, 'showDokterRegistrationForm'])->name('register.dokter.form');
+Route::post('/dashboard/tambah-dokter', [DokterController::class, 'store'])->name('register.dokter.submit');
+Route::get('/register', [UserController::class, 'index'])->name('register');
+Route::post('/register', [UserController::class, 'store'])->name('register');
+Route::get('/logout',[AuthController::class,'logout']);
 
-Route::middleware(['auth'])->group(function(){
-    Route::get('/index/admin', [AuthController::class, 'admin'])->middleware('userAkses:admin');
-    Route::get('/dashboard/tambah-dokter', [RegisterController::class,'registerdokter'])->middleware('userAkses:admin');
-    Route::get('/index/dokter', [AuthController::class, 'dokter'])->middleware('userAkses:dokter');
-    Route::get('/index/pasien', [AuthController::class, 'pasien'])->middleware('userAkses:pasien');
-    Route::get('/logout', [SesiController::class, 'logout']);
+Route::middleware(['userAkses'])->group(function(){
+    Route::get('/home', function(){
+        return view('dashboard.index');
+    })->middleware('auth:dokters,web,operators');
 });

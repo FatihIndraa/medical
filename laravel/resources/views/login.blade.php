@@ -38,7 +38,7 @@
                     <button name="submit" type="submit" class="btn btn-primary">Login</button>
                 </div>
                 <div>
-                    <a href="{{ '/register' }}">daftar sekarang</a>
+                    <a href="/register">daftar sekarang</a>
                 </div>
             </form>
         </div>
