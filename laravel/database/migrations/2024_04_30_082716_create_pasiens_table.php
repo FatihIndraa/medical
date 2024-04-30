@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('kelamin');
+            $table->enum('kelamin',['L','P']);
+            $table->date('tanggal_lahir');
+            $table->text('alamat');
         });
     }
 

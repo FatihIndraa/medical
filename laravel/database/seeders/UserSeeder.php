@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\User;
 class UserSeeder extends Seeder
 {
@@ -12,6 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        Artisan::call('migrate:fresh --seed');
         $userData = [
             [
                 'name' => 'Admin',
@@ -31,10 +33,10 @@ class UserSeeder extends Seeder
                 'role' => 'dokter',
                 'password' => bcrypt('password')
             ],
-           ];
-
-           foreach ($userData as $key => $value) {
-               User::create($value);
-           }
+        ];
+        
+        foreach ($userData as $key => $value) {
+            User::create($value);
+        }
     }
 }

@@ -20,6 +20,13 @@ class RegisterController extends Controller
             'active'=>'register'
         ]);
     }
+    public function registerdokter()
+    {
+        return view("dashboard.tambah-dokter",[
+            'title' => 'login',
+            'active'=>'register'
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -38,20 +45,20 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email:dns|unique:users',
             'password' => 'required|min:5',
-            'kelamin' => 'required' // Menambahkan validasi untuk jenis kelamin
+            'kelamin' => 'required' 
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        $kelamin = $validatedData['kelamin']; // Menyimpan jenis kelamin ke dalam variabel terpisah
-        unset($validatedData['kelamin']); // Menghapus jenis kelamin dari array $validatedData
+        $kelamin = $validatedData['kelamin'];
+        unset($validatedData['kelamin']); 
 
         $user = User::create($validatedData);
 
         // Simpan jenis kelamin ke dalam tabel pasien
         $pasiens = new Pasien();
         $pasiens->kelamin = $kelamin;
-        $pasiens->user_id = $user->id; // Asumsi terdapat relasi antara user dan pasien
+        $pasiens->user_id = $user->id;
         $pasiens->save();
 
         return redirect('/')->with('success', 'Registration Successful!! Please Login');

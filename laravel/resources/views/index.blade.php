@@ -39,13 +39,13 @@
                                         class="ms-1 d-none d-sm-inline">Tindakan</span> </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0 align-middle">
+                                <a href="/" class="nav-link px-0 align-middle">
                                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Tambah
                                         Pasien</span></a>
                             </li>
                             <li>
-                                <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                    <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Tambah
+                                <a href="/dashboard/tambah-dokter" class="nav-link px-0 align-middle">
+                                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Tambah
                                         Dokter</span></a>
                             </li>
                         @endif
