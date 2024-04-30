@@ -34,4 +34,6 @@ Route::middleware(['userAkses'])->group(function(){
     Route::get('/home', function(){
         return view('dashboard.index');
     })->middleware('auth:dokters,web,operators');
+
+    Route::get('/dashboard/data-dokter', [DokterController::class, 'dataDokter'])->name('dashboard.data-dokter');
 });

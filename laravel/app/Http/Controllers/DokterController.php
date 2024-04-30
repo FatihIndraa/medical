@@ -19,6 +19,11 @@ class DokterController extends Controller
             'active' => 'register'
         ]);
     }
+    public function dataDokter()
+    {
+        $dokters = Dokter::all();
+        return view('dashboard.data-dokter', compact('dokters'));
+    }
 
     public function index()
     {

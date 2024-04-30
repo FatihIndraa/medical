@@ -54,53 +54,49 @@
                         {{-- authentikasi user end --}}
                     </ul>
                     <hr>
-                    @auth('operators')
-                        <div class="dropdown pb-4">
-                            <a href="#"
-                                class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
-                                    class="rounded-circle">
-                                <span class="d-none d-sm-inline mx-1">{{ Auth::user()->name }}</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                                <li><a class="dropdown-item" href="/logout">Sign out</a></li>
-                            </ul>
-                        </div>
-                    @endauth
+                    <div class="dropdown pb-4">
+                        <a href="#"
+                            class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
+                                class="rounded-circle">
+                            {{-- <span class="d-none d-sm-inline mx-1">{{ Auth::user()->name }}</span> --}}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             {{-- isi konten --}}
             <div class="col py-3">
                 <div class="bg-white container-sm col-6 border my-3 rounded px-5 py-3 pb-5">
-                    <h1>Halo!!</h1>
-                    <div class="mb-3">Selamat datang {{ Auth::user()->name }}</div>
+                    <h1>Data Dokter</h1>
                     @auth('operators')
-                        <a href="/dashboard/rekam-medis" class="btn btn-primary mb-2">Tambah Rekam Medis</a>
+                        <a href="/dashboard/tambah-dokter" class="btn btn-primary mb-2">Tambah Dokter</a>
                     @endauth
                     <div class="table-responsive">
                         <table class="table">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Nama Pasien</th>
-                                    <th scope="col">Jenis Kelamin</th>
-                                    <th scope="col">Keluhan</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Nama Dokter</th>
+                                    <th scope="col">Email</th>
+                                    <!-- Hapus kolom password -->
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
+                                @foreach ($dokters as $dokter)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $dokter->name }}</td>
+                                        <td>{{ $dokter->email }}</td>
+                                        <!-- Hapus kolom password -->
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>
