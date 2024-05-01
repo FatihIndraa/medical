@@ -61,7 +61,15 @@
                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
                                 class="rounded-circle">
-                            {{-- <span class="d-none d-sm-inline mx-1">{{ Auth::user()->name }}</span> --}}
+                            @auth('operators')
+                                <span class="d-none d-sm-inline mx-1">{{ Auth::guard('operators')->user()->name }}</span>
+                            @endauth
+                            @auth('dokters')
+                                <span class="d-none d-sm-inline mx-1">{{ Auth::guard('dokters')->user()->name }}</span>
+                            @endauth
+                            @auth('web')
+                                <span class="d-none d-sm-inline mx-1">{{ Auth::guard('web')->user()->name }}</span>
+                            @endauth
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                             <li><a class="dropdown-item" href="/logout">Sign out</a></li>

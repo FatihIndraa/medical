@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +38,8 @@ Route::middleware(['userAkses'])->group(function(){
 
     Route::get('/dashboard/data-dokter', [DokterController::class, 'dataDokter'])->name('dashboard.data-dokter');
     Route::get('/dashboard/data-pasien', [UserController::class, 'dataPasien'])->name('dashboard.data-pasien');
+    Route::get('/dashboard/tambah-rekam-medis',[RekamMedisController::class,'index']);
+    Route::post('/dashboard/tambah-rekam-medis',[RekamMedisController::class,'store']);
+    Route::get('/',[RekamMedisController::class,'showRekamMedis']);
+
 });
