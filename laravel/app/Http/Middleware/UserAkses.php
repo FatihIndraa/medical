@@ -30,7 +30,9 @@ class UserAkses
             // Jika pengguna masuk sebagai operator
             // Lakukan sesuatu, seperti mengarahkan mereka ke dashboard operator
             return $next($request);
-
-        } 
+        } else {
+            // Jika pengguna tidak terotentikasi, arahkan mereka ke halaman login
+            return redirect()->route('login');
+        }
     }
 }
