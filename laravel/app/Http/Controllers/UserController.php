@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -40,14 +41,16 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email:dns|unique:users',
-            'password' => 'required|min:5'
+            'password' => 'required|min:5',
+            'gender' => ['required', Rule::in(['Laki-laki', 'Perempuan'])], // Validasi untuk jenis kelamin
+            'alamat' => 'required', // Validasi untuk alamat
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
         User::create($validatedData);
 
-        return redirect('/')->with('success', 'Registration Successful!! Please Login');
+        return redirect('/')->with('success', 'Pendaftaran Berhasil!! Silakan Masuk');
     }
 
     /**

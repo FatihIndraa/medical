@@ -18,37 +18,24 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' => 'admin@admin.com',
-                'role' => 'admin',
                 'password' => bcrypt('password'),
             ],
             [
-                'name' => 'pasien',
+                'name' => 'Pasien',
                 'email' => 'pasien@pasien.com',
-                'role' => 'pasien',
+                'gender' => 'Laki-laki',
+                'alamat' => 'Jalan Pasien No. 1',
                 'password' => bcrypt('password'),
             ],
             [
-                'name' => 'dokter',
+                'name' => 'Dokter',
                 'email' => 'dokter@dokter.com',
-                'role' => 'dokter',
                 'password' => bcrypt('password')
             ],
         ];
-        $dokterData = [
-            [
-                'name'=> 'dokter',
-                'email'=> 'dokter@dokter.com',
-                'password'=>bcrypt('password'),
-            ],
-        ];
-        
-        foreach ($dokterData as $value) {
-            Dokter::create($value);
-        }
-        
-        foreach ($userData as $key => $value) {
+
+        foreach ($userData as $value) {
             User::create($value);
         }
-        
     }
 }

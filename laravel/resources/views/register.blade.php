@@ -55,6 +55,27 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="mb-3">
+                                <select class="form-control" name="gender" id="gender" required>
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                                @error('gender')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <textarea class="form-control" name="alamat" id="alamat" placeholder="Alamat" required>{{ old('alamat') }}</textarea>
+                                @error('alamat')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div class="mb-3"><button class="btn btn-primary d-block w-100"
                                     type="submit">Register</button></div>
                             <p class="text-muted">sudah punya akun?

@@ -20,35 +20,52 @@
                 <table class="table">
                     <thead class="table-dark">
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Nama Pasien</th>
                             <th scope="col">Nama Dokter</th>
                             <th scope="col">Keluhan</th>
-                            <th scope="col">Action</th>
+                            @if (auth()->guard('dokters')->check() || auth()->guard('operators')->check())
+                                <th scope="col">Action</th>
+                            @elseif (auth()->guard('web')->check())
+                                <th scope="col">Lihat Tindakan</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach ($rekamMedis as $rekam)
-                            @if (auth()->guard('web')->check() && $rekam->user_id == auth()->guard('web')->user()->id)
+                            @php
+                                // Batasi keluhan menjadi maksimal 10 kata
+                                $keluhan = $rekam->keluhan;
+                                $wordCount = str_word_count($keluhan);
+
+                                if ($wordCount > 10) {
+                                    $keluhan = implode(' ', array_slice(str_word_count($keluhan, 1), 0, 10)) . '...';
+                                }
+                            @endphp
+
+                            @if (auth()->guard('dokters')->check() && $rekam->dokter_id == auth()->guard('dokters')->user()->id)
                                 <tr>
-                                    <td>{{ $rekam->id }}</td>
                                     <td>{{ $rekam->user->name }}</td>
                                     <td>{{ $rekam->dokter->name }}</td>
-                                    <td>{{ $rekam->keluhan }}</td>
-                                    <td>Actions for Patient</td>
+                                    <td>{{ $keluhan }}</td>
+                                    <td>Actions for Doctor</td>
                                 </tr>
-                            @elseif (auth()->guard('dokters')->check() || auth()->guard('operators')->check())
+                            @elseif (auth()->guard('operators')->check())
                                 <tr>
-                                    <td>{{ $rekam->id }}</td>
                                     <td>{{ $rekam->user->name }}</td>
                                     <td>{{ $rekam->dokter->name }}</td>
-                                    <td>{{ $rekam->keluhan }}</td>
-                                    <td>Actions for Doctor or Operator</td>
+                                    <td>{{ $keluhan }}</td>
+                                    <td>Actions for Operator</td>
+                                </tr>
+                            @elseif (auth()->guard('web')->check() && $rekam->user_id == auth()->guard('web')->user()->id)
+                                <tr>
+                                    <td>{{ $rekam->user->name }}</td>
+                                    <td>{{ $rekam->dokter->name }}</td>
+                                    <td>{{ $keluhan }}</td>
+                                    <td></td>
                                 </tr>
                             @endif
                         @endforeach
-
 
                     </tbody>
                 </table>
