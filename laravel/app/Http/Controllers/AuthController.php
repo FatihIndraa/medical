@@ -11,7 +11,7 @@ class AuthController extends Controller
      * Display a listing of the resource.
      */
     public function login(){
-        return view('login');
+        return view('/login');
     }
 
     public function procesLogin(Request $request){
@@ -23,17 +23,17 @@ class AuthController extends Controller
         if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect('');
+            return redirect('dashboard');
         }
         if (Auth::guard('dokters')->attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect('');
+            return redirect('dashboard');
         }
         if (Auth::guard('operators')->attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect('');
+            return redirect('dashboard');
         }
  
         return back()->withErrors([
@@ -45,6 +45,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/');
     }
 }

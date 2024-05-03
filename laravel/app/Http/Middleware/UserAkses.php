@@ -26,12 +26,11 @@ class UserAkses
             // Jika pengguna masuk sebagai operator
             // Lakukan sesuatu, seperti mengarahkan mereka ke dashboard operator
             return $next($request);
-
-        } else {
-            // Jika pengguna masuk sebagai pengguna biasa
-            // Lakukan sesuatu, seperti mengarahkan mereka ke dashboard umum
+        } elseif (Auth::guard('web')->check()) {
+            // Jika pengguna masuk sebagai operator
+            // Lakukan sesuatu, seperti mengarahkan mereka ke dashboard operator
             return $next($request);
 
-        }
+        } 
     }
 }

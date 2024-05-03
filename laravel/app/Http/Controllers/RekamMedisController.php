@@ -59,7 +59,7 @@ class RekamMedisController extends Controller
         $rekamMedis->save();
 
         // Redirect ke halaman tertentu setelah berhasil menyimpan rekam medis
-        return redirect('')->with('success', 'Rekam Medis berhasil ditambahkan');
+        return redirect('/dashboard')->with('success', 'Rekam Medis berhasil ditambahkan');
     }
 
    

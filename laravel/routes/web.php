@@ -18,13 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-
-Route::get('/login',[AuthController::class,'login'])->name('login');
-Route::post('/login', [AuthController::class,'procesLogin']);
+Route::get('/',[AuthController::class,'login'])->name('login');
+Route::post('/', [AuthController::class,'procesLogin']);
 Route::get('/dashboard/tambah-dokter', [DokterController::class, 'showDokterRegistrationForm'])->name('register.dokter.form');
 Route::post('/dashboard/tambah-dokter', [DokterController::class, 'store'])->name('register.dokter.submit');
 Route::get('/register', [UserController::class, 'index'])->name('register');
@@ -32,7 +28,7 @@ Route::post('/register', [UserController::class, 'store'])->name('register');
 Route::get('/logout',[AuthController::class,'logout']);
 
 Route::middleware(['userAkses'])->group(function(){
-    Route::get('/', function(){
+    Route::get('/dashboard', function(){
         return view('dashboard.index');
     })->middleware('auth:dokters,web,operators');
 
@@ -40,6 +36,6 @@ Route::middleware(['userAkses'])->group(function(){
     Route::get('/dashboard/data-pasien', [UserController::class, 'dataPasien'])->name('dashboard.data-pasien');
     Route::get('/dashboard/tambah-rekam-medis',[RekamMedisController::class,'index']);
     Route::post('/dashboard/tambah-rekam-medis',[RekamMedisController::class,'store']);
-    Route::get('/',[RekamMedisController::class,'showRekamMedis']);
+    Route::get('/dashboard',[RekamMedisController::class,'showRekamMedis']);
 
 });

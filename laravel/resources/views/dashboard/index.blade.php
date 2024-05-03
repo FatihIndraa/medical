@@ -28,15 +28,27 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach ($rekamMedis as $rekam)
-                            <tr>
-                                <td>{{ $rekam->id }}</td>
-                                <td>{{ $rekam->user->name }}</td>
-                                <td>{{ $rekam->dokter->name }}</td>
-                                <td>{{ $rekam->keluhan }}</td>
-                                <td>Actions</td> <!-- Tambahkan tombol action sesuai kebutuhan -->
-                            </tr>
+                            @if (auth()->guard('web')->check() && $rekam->user_id == auth()->guard('web')->user()->id)
+                                <tr>
+                                    <td>{{ $rekam->id }}</td>
+                                    <td>{{ $rekam->user->name }}</td>
+                                    <td>{{ $rekam->dokter->name }}</td>
+                                    <td>{{ $rekam->keluhan }}</td>
+                                    <td>Actions for Patient</td>
+                                </tr>
+                            @elseif (auth()->guard('dokters')->check() || auth()->guard('operators')->check())
+                                <tr>
+                                    <td>{{ $rekam->id }}</td>
+                                    <td>{{ $rekam->user->name }}</td>
+                                    <td>{{ $rekam->dokter->name }}</td>
+                                    <td>{{ $rekam->keluhan }}</td>
+                                    <td>Actions for Doctor or Operator</td>
+                                </tr>
+                            @endif
                         @endforeach
+
 
                     </tbody>
                 </table>

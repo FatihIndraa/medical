@@ -17,7 +17,8 @@
                     <div class="card-header">Register</div>
 
                     <div class="card-body">
-                        <form class="text-center" action="/register" method="post">
+                        <form class="text-center" action="/register" method="post"
+                            onsubmit="return confirmRegistration()">
                             @csrf
                             <div class="mb-3"><input
                                     class="form-control @error('name')
@@ -57,7 +58,7 @@
                             <div class="mb-3"><button class="btn btn-primary d-block w-100"
                                     type="submit">Register</button></div>
                             <p class="text-muted">sudah punya akun?
-                                <a href="login">login</a>
+                                <a href="{{ '/' }}">login</a>
                             </p>
                         </form>
                     </div>
@@ -68,6 +69,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
     </script>
+    <script>
+        function confirmRegistration() {
+            return confirm("Apakah Anda yakin ingin menyimpan data ini?");
+        }
+    </script>
+
 </body>
 
 </html>
