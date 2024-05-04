@@ -14,7 +14,26 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Tambah Dokter</div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
+
+@extends('dashboard.layout.template')
+
+@section('konten')
+    <div class="table-responsive">
+        <div class="container-sm col-6 my-3 rounded px-5 py-3 pb-5">
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">Tambah Dokter</div>
 
                     <div class="card-body">
                         <form class="text-center" action="/dashboard/tambah-dokter" method="post">
@@ -58,13 +77,8 @@
                                     type="submit">Register</button></div>
                         </form>
                     </div>
-                </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
-</body>
+@endsection
 
-</html>

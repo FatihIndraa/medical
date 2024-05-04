@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('user_id');
             $table->foreignId('dokter_id');
+            $table->string('telp');
             $table->text('keluhan');
         });
     }

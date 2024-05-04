@@ -2,7 +2,7 @@
 
 @section('konten')
     <div class="table-responsive">
-        <div class="container py-4">
+        <div class="container-sm col-6 my-3 rounded px-5 py-3 pb-5">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
                     <h1 class="mb-0">Tambah Keluhan</h1>
@@ -25,6 +25,10 @@
                                     <option value="{{ $dokter->id }}">{{ $dokter->name }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telp" class="form-label">Nomor yang bisa dihubungi</label>
+                            <input type="number" class="form-control" id="telp" name="telp" pattern="[0-9]+" title="Hanya boleh diisi dengan angka" required>
                         </div>
                         <div class="mb-3">
                             <label for="keluhan" class="form-label">Keluhan</label>
