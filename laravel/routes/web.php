@@ -33,5 +33,8 @@ Route::middleware(['userAkses'])->group(function(){
     Route::post('/dashboard/tambah-dokter', [DokterController::class, 'store'])->name('register.dokter.submit');
     Route::get('/dashboard/tambah-rekam-medis',[RekamMedisController::class,'index']);
     Route::post('/dashboard/tambah-rekam-medis',[RekamMedisController::class,'store']);
+    Route::get('/dashboard/edit-rekam-medis/{id}', [RekamMedisController::class, 'edit']);
+    Route::delete('/rekam-medis/{id}', [RekamMedisController::class, 'destroy']);
+    Route::put('/rekam-medis/{id}', [RekamMedisController::class, 'update']);
     Route::get('/dashboard',[RekamMedisController::class,'showRekamMedis']);
 });

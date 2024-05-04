@@ -35,11 +35,15 @@ class RekamMedisController extends Controller
         // Ambil semua data rekam medis
         $rekamMedis = RekamMedis::all();
 
+        // Ambil semua data dokter
+        $dokters = Dokter::all();
+
         // Tampilkan view dan teruskan data ke view
         return view('dashboard.index', [
             'title' => 'Data Rekam Medis',
             'active' => 'rekam medis',
-            'rekamMedis' => $rekamMedis // Teruskan data rekam medis ke view
+            'rekamMedis' => $rekamMedis, // Teruskan data rekam medis ke view
+            'dokters' => $dokters // Teruskan data dokter ke view
         ]);
     }
     public function store(Request $request)
@@ -61,4 +65,59 @@ class RekamMedisController extends Controller
         // Redirect ke halaman tertentu setelah berhasil menyimpan rekam medis
         return redirect('/dashboard')->with('success', 'Rekam Medis berhasil ditambahkan');
     }
+    public function edit($id)
+    {
+        // Temukan rekam medis berdasarkan ID yang diberikan
+        $rekamMedis = RekamMedis::findOrFail($id);
+        
+        // Ambil semua data dokter
+        $dokters = Dokter::all();
+        
+        // Tampilkan view dan teruskan data ke view
+        return view('dashboard.edit-rekam-medis', [
+            'title' => 'Edit Rekam Medis',
+            'active' => 'rekam medis',
+            'rekamMedis' => $rekamMedis, // Teruskan data rekam medis ke view
+            'dokters' => $dokters // Teruskan data dokter ke view
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validasi data yang diterima dari request
+        $validatedData = $request->validate([
+            'dokter' => 'required',
+            'keluhan' => 'required',
+        ]);
+
+        // Temukan rekam medis berdasarkan ID yang diberikan
+        $rekamMedis = RekamMedis::findOrFail($id);
+
+        // Update data rekam medis dengan data yang diterima dari request
+        $rekamMedis->user_id = auth()->user()->id; // Set user_id berdasarkan pengguna yang sedang masuk
+        $rekamMedis->dokter_id = $validatedData['dokter']; // Tetapkan dokter_id yang diterima dari request
+        $rekamMedis->keluhan = $validatedData['keluhan'];
+        $rekamMedis->save();
+
+        // Redirect ke halaman tertentu setelah berhasil menyimpan perubahan rekam medis
+        return response()->json(['message' => 'Rekam Medis berhasil diperbarui'], 200);
+    }
+
+    public function destroy($id)
+    {
+        try {
+            // Temukan rekam medis berdasarkan ID yang diberikan
+            $rekamMedis = RekamMedis::findOrFail($id);
+            
+            // Hapus rekam medis
+            $rekamMedis->delete();
+
+            // Jika berhasil, kembalikan respons dengan pesan sukses
+            return response()->json(['message' => 'Rekam Medis berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika terjadi
+            return response()->json(['message' => 'Terjadi kesalahan saat menghapus rekam medis'], 500);
+        }
+    }
+
 }
