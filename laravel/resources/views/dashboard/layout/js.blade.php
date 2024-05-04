@@ -58,6 +58,10 @@
                             <input type="text" class="form-control" id="editAlamatPasien" disabled>
                         </div>
                         <div class="mb-3">
+                            <label for="telp" class="form-label">Nomor yang bisa dihubungi</label>
+                            <input type="number" class="form-control" id="telp">
+                        </div>
+                        <div class="mb-3">
                             <label for="editKeluhanPasien" class="form-label">Keluhan</label>
                             <input type="text" class="form-control" id="editKeluhanPasien">
                         </div>
@@ -83,7 +87,7 @@
         myModal.show();
     }
 
-    function editPatientDetails(nama, jenisKelamin, alamat, dokterId, keluhan, dokters, rekamMedisId, userId) {
+    function editPatientDetails(nama, jenisKelamin, alamat, dokterId, telp, keluhan, dokters, rekamMedisId, userId) {
         // Isi formulir edit dengan data yang tepat
         document.getElementById("editNamaPasien").value = nama;
         document.getElementById("editJenisKelaminPasien").value = jenisKelamin;
@@ -99,6 +103,7 @@
             }
             select.appendChild(option);
         });
+        document.getElementById("telp").value = telp; // Set nilai nomor telepon pasien
         document.getElementById("editKeluhanPasien").value = keluhan;
 
         // Simpan ID pasien dan dokter dalam atribut data untuk referensi nanti
@@ -113,6 +118,7 @@
         var myModal = new bootstrap.Modal(document.getElementById('editPatientModal'));
         myModal.show();
     }
+
 
 
     document.querySelectorAll(".btn-warning").forEach(function(button) {

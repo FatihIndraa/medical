@@ -87,6 +87,7 @@ class RekamMedisController extends Controller
         // Validasi data yang diterima dari request
         $validatedData = $request->validate([
             'dokter' => 'required',
+            'telp' => 'required',
             'keluhan' => 'required',
         ]);
 
@@ -96,6 +97,7 @@ class RekamMedisController extends Controller
         // Update data rekam medis dengan data yang diterima dari request
         $rekamMedis->user_id = auth()->user()->id; // Set user_id berdasarkan pengguna yang sedang masuk
         $rekamMedis->dokter_id = $validatedData['dokter']; // Tetapkan dokter_id yang diterima dari request
+        $rekamMedis->telp = $validatedData['telp'];
         $rekamMedis->keluhan = $validatedData['keluhan'];
         $rekamMedis->save();
 
