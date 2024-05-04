@@ -29,42 +29,38 @@
                     </thead>
                     <tbody>
                         @foreach ($rekamMedis as $rekam)
-                            @if ($rekam->user_id == auth()->id())
-                                <!-- Hanya menampilkan rekam medis jika user_id sama dengan id pengguna yang sedang masuk -->
-                                @php
-                                    // Batasi keluhan menjadi maksimal 10 kata
-                                    $keluhan = $rekam->keluhan;
-                                    $wordCount = str_word_count($keluhan);
+                            @php
+                                // Batasi keluhan menjadi maksimal 10 kata
+                                $keluhan = $rekam->keluhan;
+                                $wordCount = str_word_count($keluhan);
 
-                                    if ($wordCount > 10) {
-                                        $keluhan =
-                                            implode(' ', array_slice(str_word_count($keluhan, 1), 0, 10)) . '...';
-                                    }
-                                @endphp
+                                if ($wordCount > 10) {
+                                    $keluhan = implode(' ', array_slice(str_word_count($keluhan, 1), 0, 10)) . '...';
+                                }
+                            @endphp
 
-                                <tr>
-                                    <td>{{ $rekam->user->name }}</td>
-                                    <td>{{ $rekam->dokter->name }}</td>
-                                    <td>{{ $keluhan }}</td>
-                                    <td>
-                                        <button class="btn btn-info btn-sm"
-                                            onclick="showPatientDetails('{{ $rekam->user->name }}', '{{ $rekam->user->gender }}', '{{ $rekam->user->alamat }}', '{{ $rekam->dokter->name }}', '{{ $rekam->keluhan }}')">
-                                            <i class="bi bi-eye"></i> Lihat
+                            <tr>
+                                <td>{{ $rekam->user->name }}</td>
+                                <td>{{ $rekam->dokter->name }}</td>
+                                <td>{{ $keluhan }}</td>
+                                <td>
+                                    <button class="btn btn-info btn-sm"
+                                        onclick="showPatientDetails('{{ $rekam->user->name }}', '{{ $rekam->user->gender }}', '{{ $rekam->user->alamat }}', '{{ $rekam->dokter->name }}', '{{ $rekam->keluhan }}')">
+                                        <i class="bi bi-eye"></i> Lihat
+                                    </button>
+                                    @if (auth()->guard('web')->check())
+                                        <button class="btn btn-warning btn-sm"
+                                            onclick="editPatientDetails('{{ $rekam->user->name }}', '{{ $rekam->user->gender }}', '{{ $rekam->user->alamat }}', '{{ $rekam->dokter->id }}', '{{ $rekam->keluhan }}', {{ json_encode($dokters) }}, '{{ $rekam->id }}')">
+                                            <i class="bi bi-pencil"></i> Edit
                                         </button>
-                                        @if (auth()->guard('web')->check())
-                                            <button class="btn btn-warning btn-sm"
-                                                onclick="editPatientDetails('{{ $rekam->user->name }}', '{{ $rekam->user->gender }}', '{{ $rekam->user->alamat }}', '{{ $rekam->dokter->id }}', '{{ $rekam->keluhan }}', {{ json_encode($dokters) }}, '{{ $rekam->id }}')">
-                                                <i class="bi bi-pencil"></i> Edit
-                                            </button>
-                                        @endif
-                                        @if (auth()->guard('operators')->check() || auth()->guard('web')->check())
-                                            <button class="btn btn-danger btn-sm"
-                                                onclick="deletePatient('{{ $rekam->id }}')"><i class="bi bi-trash"></i>
-                                                Hapus</button>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endif
+                                    @endif
+                                    @if (auth()->guard('operators')->check() || auth()->guard('web')->check())
+                                        <button class="btn btn-danger btn-sm"
+                                            onclick="deletePatient('{{ $rekam->id }}')"><i class="bi bi-trash"></i>
+                                            Hapus</button>
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
