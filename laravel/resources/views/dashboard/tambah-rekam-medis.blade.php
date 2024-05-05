@@ -28,7 +28,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="telp" class="form-label">Nomor yang bisa dihubungi</label>
-                            <input type="number" class="form-control" id="telp" name="telp" pattern="[0-9]+" title="Hanya boleh diisi dengan angka" required>
+                            <input type="text" class="form-control" id="telp" name="telp" pattern="[0-9]+" title="Hanya boleh diisi dengan angka" required>
                         </div>
                         <div class="mb-3">
                             <label for="keluhan" class="form-label">Keluhan</label>
