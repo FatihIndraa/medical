@@ -49,10 +49,11 @@
                                         <i class="bi bi-eye"></i> Lihat
                                     </button>
                                     @if (auth()->guard('web')->check())
-                                        <button class="btn btn-warning btn-sm"
-                                            onclick="editPatientDetails('{{ $rekam->user->name }}', '{{ $rekam->user->gender }}', '{{ $rekam->user->alamat }}', '{{ $rekam->dokter->id }}','{{ $rekam->telp }}', '{{ $rekam->keluhan }}', {{ json_encode($dokters) }}, '{{ $rekam->id }}')">
-                                            <i class="bi bi-pencil"></i> Edit
-                                        </button>
+                                    <button class="btn btn-warning btn-sm"
+                                    onclick="editPatientDetails('{{ $rekam->user->name }}', '{{ $rekam->user->gender }}', '{{ $rekam->user->alamat }}', '{{ $rekam->dokter->id }}','{{ $rekam->telp }}', '{{ $rekam->keluhan }}', {{ json_encode($dokters) }}, '{{ $rekam->id }}', '{{ $rekam->user_id }}')">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </button>
+                                
                                     @endif
                                     @if (auth()->guard('operators')->check() || auth()->guard('web')->check())
                                         <button class="btn btn-danger btn-sm"
@@ -67,6 +68,4 @@
             </div>
         </div>
     </div>
-
-    
 @endsection
