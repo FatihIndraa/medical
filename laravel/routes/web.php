@@ -16,15 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[AuthController::class,'login'])->name('login');
-Route::post('/', [AuthController::class,'procesLogin']);
-Route::get('/register', [UserController::class, 'index'])->name('register');
-Route::post('/register', [UserController::class, 'store'])->name('register');
+// route login
+Route::get('/login',[AuthController::class,'login'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class,'procesLogin']);
 Route::get('/logout',[AuthController::class,'logout']);
 
+// route register
+Route::get('/register', [UserController::class, 'index'])->name('register');
+Route::post('/register', [UserController::class, 'store'])->name('register');
+
+// route home halaman utama
+Route::get('/', [AuthController::class, 'index'])->name('home');
+
+// route dashboard
 Route::middleware(['userAkses'])->group(function(){
-    Route::get('/dashboard', function(){
-        return view('dashboard.index');
+    Route::get('/home', function(){
+        return view('home');
     })->middleware('auth:dokters,web,operators');
     
     Route::get('/dashboard/data-dokter', [DokterController::class, 'dataDokter'])->name('dashboard.data-dokter');

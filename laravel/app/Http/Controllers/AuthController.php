@@ -15,6 +15,9 @@ class AuthController extends Controller
         return view('login');
     }
 
+    public function index(){
+        return view('home');
+    }
     /**
      * Process the login request.
      */
@@ -28,19 +31,19 @@ class AuthController extends Controller
         if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('dashboard');
+            return redirect('home');
         }
 
         if (Auth::guard('dokters')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('dashboard');
+            return redirect('home');
         }
 
         if (Auth::guard('operators')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('dashboard');
+            return redirect('home');
         }
 
         return back()->withErrors([
@@ -57,6 +60,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

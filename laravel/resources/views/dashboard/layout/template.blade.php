@@ -52,7 +52,7 @@
                     </a>
                     <ul class="nav flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                         <li class="nav-item">
-                            <a href="#" class="nav-link align-middle">
+                            <a href="/home" class="nav-link align-middle">
                                 <i class="fs-4 bi-house"></i> <span class="ms-1">Home</span>
                             </a>
                         </li>
