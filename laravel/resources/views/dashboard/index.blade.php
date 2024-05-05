@@ -53,12 +53,12 @@
                                     onclick="editPatientDetails('{{ $rekam->user->name }}', '{{ $rekam->user->gender }}', '{{ $rekam->user->alamat }}', '{{ $rekam->dokter->id }}','{{ $rekam->telp }}', '{{ $rekam->keluhan }}', {{ json_encode($dokters) }}, '{{ $rekam->id }}', '{{ $rekam->user_id }}')">
                                     <i class="bi bi-pencil"></i> Edit
                                 </button>
-                                
                                     @endif
                                     @if (auth()->guard('operators')->check() || auth()->guard('web')->check())
-                                        <button class="btn btn-danger btn-sm"
-                                            onclick="deletePatient('{{ $rekam->id }}')"><i class="bi bi-trash"></i>
-                                            Hapus</button>
+                                    <button class="btn btn-danger btn-sm" onclick="deletePatient('{{ $rekam->id }}')">
+                                        <i class="bi bi-trash"></i> Hapus
+                                    </button>
+
                                     @endif
                                 </td>
                             </tr>
@@ -68,4 +68,5 @@
             </div>
         </div>
     </div>
+    
 @endsection

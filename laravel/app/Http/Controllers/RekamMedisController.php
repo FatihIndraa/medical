@@ -17,48 +17,39 @@ class RekamMedisController extends Controller
     {
         // Ambil semua data pengguna
         $users = User::all();
-        
         // Ambil semua data dokter
         $dokters = Dokter::all();
-        
-
         // Tampilkan view dan teruskan data ke view
         return view('dashboard.tambah-rekam-medis', [
             'title' => 'Tambah Rekam Medis',
             'active' => 'rekam medis',
-            'users' => $users, // Teruskan data pengguna ke view
-            'dokters' => $dokters // Teruskan data dokter ke view
+            'users' => $users,
+            'dokters' => $dokters 
         ]);
-    
     }
     public function showRekamMedis()
     {
         // Ambil semua data rekam medis
         $rekamMedis = RekamMedis::all();
-
         // Ambil semua data dokter
         $dokters = Dokter::all();
-
         // Jika pengguna adalah dokter atau operator, izinkan mereka melihat semua data rekam medis
         if (Auth::guard('operators')->check() || Auth::guard('dokters')->check()) {
             $rekamMedis = RekamMedis::all();
         } else {
             // Ambil ID pengguna yang saat ini masuk
             $userId = Auth::id();
-
             // Ambil semua data rekam medis yang terkait dengan pengguna yang saat ini masuk
             $rekamMedis = RekamMedis::where('user_id', $userId)->get();
         }
-
         // Tampilkan view dan teruskan data ke view
         return view('dashboard.index', [
             'title' => 'Data Rekam Medis',
             'active' => 'rekam medis',
             'rekamMedis' => $rekamMedis,
-            'dokters' => $dokters, // Teruskan data dokters ke view
+            'dokters' => $dokters, 
         ]);
     }
-
     public function store(Request $request)
     {
         // Validasi data yang diterima dari request
@@ -76,7 +67,6 @@ class RekamMedisController extends Controller
         $rekamMedis->telp = $validatedData['telp'];
         $rekamMedis->keluhan = $validatedData['keluhan'];
         $rekamMedis->save();
-
         // Redirect ke halaman tertentu setelah berhasil menyimpan rekam medis
         return redirect('/dashboard')->with('success', 'Rekam Medis berhasil ditambahkan');
     }
@@ -84,16 +74,14 @@ class RekamMedisController extends Controller
     {
         // Temukan rekam medis berdasarkan ID yang diberikan
         $rekamMedis = RekamMedis::findOrFail($id);
-        
         // Ambil semua data dokter
         $dokters = Dokter::all();
-        
         // Tampilkan view dan teruskan data ke view
         return view('dashboard.edit-rekam-medis', [
             'title' => 'Edit Rekam Medis',
             'active' => 'rekam medis',
-            'rekamMedis' => $rekamMedis, // Teruskan data rekam medis ke view
-            'dokters' => $dokters // Teruskan data dokter ke view
+            'rekamMedis' => $rekamMedis, 
+            'dokters' => $dokters 
         ]);
     }
 
@@ -105,13 +93,11 @@ class RekamMedisController extends Controller
             'telp' => 'required',
             'keluhan' => 'required',
         ]);
-
         // Temukan rekam medis berdasarkan ID yang diberikan
         $rekamMedis = RekamMedis::findOrFail($id);
-
         // Update data rekam medis dengan data yang diterima dari request
-        $rekamMedis->user_id = auth()->user()->id; // Set user_id berdasarkan pengguna yang sedang masuk
-        $rekamMedis->dokter_id = $validatedData['dokter']; // Tetapkan dokter_id yang diterima dari request
+        $rekamMedis->user_id = auth()->user()->id;
+        $rekamMedis->dokter_id = $validatedData['dokter']; 
         $rekamMedis->telp = $validatedData['telp'];
         $rekamMedis->keluhan = $validatedData['keluhan'];
         $rekamMedis->save();
@@ -128,7 +114,6 @@ class RekamMedisController extends Controller
             
             // Hapus rekam medis
             $rekamMedis->delete();
-
             // Jika berhasil, kembalikan respons dengan pesan sukses
             return response()->json(['message' => 'Rekam Medis berhasil dihapus'], 200);
         } catch (\Exception $e) {

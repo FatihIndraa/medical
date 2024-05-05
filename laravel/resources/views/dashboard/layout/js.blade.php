@@ -40,7 +40,7 @@
                 <form id="editPatientForm" data-rekam-medis-id="" method="PUT">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" id="userId"> <!-- Input userId ditambahkan di sini -->
+                    <input type="hidden" id="userId"> 
                     <div class="mb-3">
                         <label for="editNamaPasien" class="form-label">Nama Pasien</label>
                         <input type="text" class="form-control" id="editNamaPasien" disabled>
@@ -96,13 +96,13 @@
         document.getElementById("editAlamatPasien").value = alamat;
 
         var select = document.getElementById("editNamaDokter");
-        select.innerHTML = ''; // Kosongkan opsi dokter sebelum menambahkan yang baru
+        select.innerHTML = '';
         dokters.forEach(function(dokter) {
             var option = document.createElement("option");
             option.text = dokter.name;
             option.value = dokter.id;
             if (dokter.id === dokterId) {
-                option.selected = true; // Pilih opsi dokter yang sesuai dengan dokterId
+                option.selected = true; 
             }
             select.appendChild(option);
         });
@@ -126,46 +126,58 @@
 
     // Menangani submit formulir edit pasien
     document.getElementById("editPatientForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Mencegah pengiriman formulir secara default
+        event.preventDefault();
 
         // Ambil data yang diedit dari formulir
         var userId = document.getElementById("userId").value;
-        var rekamMedisId = this.getAttribute("data-rekam-medis-id"); // Ambil ID rekam medis dari atribut data
+        var rekamMedisId = this.getAttribute("data-rekam-medis-id"); 
 
         var nama = document.getElementById("editNamaPasien").value;
         var dokterId = document.getElementById("editNamaDokter").value;
         var keluhan = document.getElementById("editKeluhanPasien").value;
-        var telp = document.getElementById("telpEdit").value; // Updated ID to telpEdit
-        var jenisKelamin = document.getElementById("editJenisKelaminPasien").value; // Ambil jenis kelamin yang diedit
-        var alamat = document.getElementById("editAlamatPasien").value; // Ambil alamat yang diedit
+        var telp = document.getElementById("telpEdit").value
+        var jenisKelamin = document.getElementById("editJenisKelaminPasien").value;
+        var alamat = document.getElementById("editAlamatPasien").value;
 
-        // Kirim data yang diedit ke server menggunakan AJAX
         axios.put('/rekam-medis/' + rekamMedisId, {
                 user_id: userId,
                 dokter: dokterId,
                 keluhan: keluhan,
-                telp: telp, // Kirim nomor telepon yang diedit
-                jenis_kelamin: jenisKelamin, // Kirim jenis kelamin yang diedit
-                alamat: alamat // Kirim alamat yang diedit
+                telp: telp,
+                jenis_kelamin: jenisKelamin, 
+                alamat: alamat 
             })
             .then(function(response) {
-                // Tanggapi respons dari server di sini
                 console.log(response);
-                // Tampilkan pesan sukses
                 alert('Rekam Medis berhasil diperbarui');
-                // Sembunyikan modal setelah berhasil
                 var myModal = new bootstrap.Modal(document.getElementById('editPatientModal'));
                 myModal.hide();
-                // Perbarui halaman setelah berhasil menyimpan perubahan
                 window.location.reload();
             })
             .catch(function(error) {
-                // Tangani kesalahan jika terjadi
                 console.error(error);
                 alert('Terjadi kesalahan saat menyimpan perubahan.');
             });
     });
 </script>
+<script>
+    function deletePatient(rekamMedisId) {
+        if (confirm("Apakah Anda yakin ingin menghapus rekam medis ini?")) {
+            axios.delete('/rekam-medis/' + rekamMedisId)
+                .then(function(response) {
+                    console.log(response);
+                    alert('Rekam Medis berhasil dihapus');
+                    window.location.reload();
+                })
+                .catch(function(error) {
+                    console.error(error);
+                    alert('Terjadi kesalahan saat menghapus rekam medis.');
+                });
+        }
+    }
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
 </script>
+
