@@ -3,6 +3,11 @@
 @section('konten')
     <div class="col py-3">
         <div class="container-sm col-6 my-3 rounded px-5 py-3 pb-5 shadow bg-light">
+            @if (session('success'))
+                <div class="alert alert-success mt-3" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
             <h1 class="mb-4">Halo!!</h1>
             @auth('operators')
                 <div class="mb-3">Selamat datang {{ Auth::guard('operators')->user()->name }}</div>

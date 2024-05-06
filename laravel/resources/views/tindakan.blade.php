@@ -5,6 +5,7 @@
             <h1 class="mb-4">Halo!!</h1>
             @auth('web')
                 <div class="mb-3">Selamat datang di halaman tindakan, {{ Auth::guard('web')->user()->name }}</div>
+                <div class="mb-3"></div>
             @endauth
             <hr>
             <div class="table-responsive">

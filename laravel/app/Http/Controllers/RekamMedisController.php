@@ -56,27 +56,38 @@ class RekamMedisController extends Controller
     {
         // Validasi data yang diterima dari request
         $validatedData = $request->validate([
+            'user_id' => 'required',
             'dokter' => 'required',
             'telp' => 'required',
             'keluhan' => 'required',
         ]);
-
+    
         // Buat rekam medis baru berdasarkan data yang diterima
         $rekamMedis = new RekamMedis();
-        $rekamMedis->user_id = Auth::id(); // Set user_id sesuai dengan pengguna yang sedang login
+        
+        // Set user_id sesuai dengan kondisi
+        if (Auth::guard('web')->check()) {
+            $rekamMedis->user_id = Auth::id(); // Set user_id sesuai dengan pengguna yang sedang login
+        } else {
+            $rekamMedis->user_id = $validatedData['user_id'];
+        }
+    
+        // Set dokter_id, telp, dan keluhan
         $rekamMedis->dokter_id = $validatedData['dokter'];
         $rekamMedis->telp = $validatedData['telp'];
         $rekamMedis->keluhan = $validatedData['keluhan'];
+        
+        // Simpan rekam medis
         $rekamMedis->save();
         
         // Redirect ke halaman tertentu setelah berhasil menyimpan rekam medis
         if (Auth::guard('web')->check()) {
             return redirect('/home')->with('success', 'Rekam Medis berhasil ditambahkan');
         } else {
-            return redirect('/dashboard.index')->with('success', 'Rekam Medis berhasil ditambahkan');
+            return redirect('/dashboard')->with('success', 'Rekam Medis berhasil ditambahkan');
         }
     }
-    public function edit($id)
+        public function edit($id)
     {
         // Temukan rekam medis berdasarkan ID yang diberikan
         $rekamMedis = RekamMedis::findOrFail($id);
