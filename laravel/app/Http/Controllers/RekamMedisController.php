@@ -16,19 +16,18 @@ class RekamMedisController extends Controller
     public function index()
     {
         // Ambil semua data pengguna
-        if (Auth::guard('dokters')->check()) {
-            // Ambil hanya data rekam medis yang terkait dengan pasien yang sedang login
-            $rekamMedis = RekamMedis::whereHas('user', function ($query) {
-                $query->where('id', Auth::guard('dokters')->user()->id);
-            })->get();
-        } 
-        // Jika user yang login adalah operator atau web, tampilkan semua data rekam medis
-        else {
-            $rekamMedis = RekamMedis::all();
-        }
-    
-        return view('dashboard.rekam-medis.index', compact('rekamMedis'));
+        $users = User::all();
+        // Ambil semua data dokter
+        $dokters = Dokter::all();
+        // Tampilkan view dan teruskan data ke view
+        return view('dashboard.tambah-rekam-medis', [
+            'title' => 'Tambah Rekam Medis',
+            'active' => 'rekam medis',
+            'users' => $users,
+            'dokters' => $dokters 
+        ]);
     }
+
     public function showRekamMedis()
     {
         // Ambil semua data rekam medis
@@ -57,7 +56,6 @@ class RekamMedisController extends Controller
     {
         // Validasi data yang diterima dari request
         $validatedData = $request->validate([
-            'user_id' => 'required',
             'dokter' => 'required',
             'telp' => 'required',
             'keluhan' => 'required',
@@ -65,13 +63,18 @@ class RekamMedisController extends Controller
 
         // Buat rekam medis baru berdasarkan data yang diterima
         $rekamMedis = new RekamMedis();
-        $rekamMedis->user_id = $validatedData['user_id'];
+        $rekamMedis->user_id = Auth::id(); // Set user_id sesuai dengan pengguna yang sedang login
         $rekamMedis->dokter_id = $validatedData['dokter'];
         $rekamMedis->telp = $validatedData['telp'];
         $rekamMedis->keluhan = $validatedData['keluhan'];
         $rekamMedis->save();
+        
         // Redirect ke halaman tertentu setelah berhasil menyimpan rekam medis
-        return redirect('/dashboard')->with('success', 'Rekam Medis berhasil ditambahkan');
+        if (Auth::guard('web')->check()) {
+            return redirect('/home')->with('success', 'Rekam Medis berhasil ditambahkan');
+        } else {
+            return redirect('/dashboard.index')->with('success', 'Rekam Medis berhasil ditambahkan');
+        }
     }
     public function edit($id)
     {

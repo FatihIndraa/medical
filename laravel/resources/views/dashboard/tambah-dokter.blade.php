@@ -14,7 +14,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    
+
                 </div>
             </div>
         </div>
@@ -35,50 +35,54 @@
 
                 <div class="card-header bg-primary text-white">Tambah Dokter</div>
 
-                    <div class="card-body">
-                        <form class="text-center" action="/dashboard/tambah-dokter" method="post">
-                            @csrf
-                            <div class="mb-3"><input
-                                    class="form-control @error('name')
+                <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success mt-3" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    <form class="text-center" action="/dashboard/tambah-dokter" method="post">
+                        @csrf
+                        <div class="mb-3"><input
+                                class="form-control @error('name')
                                 is-invalid
                             @enderror"
-                                    type="text" name="name" id="name" placeholder="Name" required
-                                    value="{{ old('name') }}">
-                                @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3"><input
-                                    class="form-control @error('email')
+                                type="text" name="name" id="name" placeholder="Name" required
+                                value="{{ old('name') }}">
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3"><input
+                                class="form-control @error('email')
                                 is-invalid
                             @enderror"
-                                    type="email" name="email" id="email" placeholder="Email" required
-                                    value="{{ old('email') }}">
-                                @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3"><input
-                                    class="form-control @error('password')
+                                type="email" name="email" id="email" placeholder="Email" required
+                                value="{{ old('email') }}">
+                            @error('email')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3"><input
+                                class="form-control @error('password')
                                 is-invalid
                             @enderror"
-                                    type="password" name="password" id="password" placeholder="Password" required>
-                                @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3"><button class="btn btn-primary d-block w-100"
-                                    type="submit">Register</button></div>
-                        </form>
-                    </div>
+                                type="password" name="password" id="password" placeholder="Password" required>
+                            @error('password')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Register</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 @endsection
-

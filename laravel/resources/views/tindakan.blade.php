@@ -1,17 +1,10 @@
-@extends('dashboard.layout.template')
-
+@extends('dashboard.layout.template-home')
 @section('konten')
     <div class="col py-3">
         <div class="container-sm col-6 my-3 rounded px-5 py-3 pb-5 shadow bg-light">
             <h1 class="mb-4">Halo!!</h1>
-            @auth('operators')
-                <div class="mb-3">Selamat datang di halaman keluhan, {{ Auth::guard('operators')->user()->name }}</div>
-            @endauth
-            @auth('dokters')
-                <div class="mb-3">Selamat datang di halaman keluhan, {{ Auth::guard('dokters')->user()->name }}</div>
-            @endauth
             @auth('web')
-                <div class="mb-3">Selamat datang di halaman keluhan, {{ Auth::guard('web')->user()->name }}</div>
+                <div class="mb-3">Selamat datang di halaman tindakan, {{ Auth::guard('web')->user()->name }}</div>
             @endauth
             <hr>
             <div class="table-responsive">
@@ -30,8 +23,8 @@
                             @php
                                 // Filter data rekam medis berdasarkan dokter terautentikasi
                                 if (
-                                    auth()->guard('dokters')->check() &&
-                                    $tindakan->rekam_medis->dokter_id !== auth()->guard('dokters')->user()->id
+                                    auth()->guard('web')->check() &&
+                                    $tindakan->rekam_medis->user_id !== auth()->guard('web')->user()->id
                                 ) {
                                     continue; // Lewati jika dokter tidak terkait dengan rekam medis ini
                                 }
@@ -66,7 +59,6 @@
         </div>
     </div>
 @endsection
-
 <!-- Modal untuk menampilkan detail tindakan -->
 <div class="modal fade" id="tindakanDetailsModal" tabindex="-1" aria-labelledby="tindakanDetailsModalLabel"
     aria-hidden="true">
@@ -98,33 +90,6 @@
         </div>
     </div>
 </div>
-<!-- Modal untuk mengedit tindakan -->
-<div class="modal fade" id="editTindakanModal" tabindex="-1" aria-labelledby="editTindakanModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editTindakanModalLabel">Edit Tindakan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editTindakanForm">
-                    @csrf
-                    <input type="hidden" id="editTindakanId" name="editTindakanId">
-                    <div class="mb-3">
-                        <input type="hidden" id="editTindakanId" name="editTindakanId">
-                        <label for="editTindakan" class="form-label">Tindakan</label>
-                        <input type="text" class="form-control" id="editTindakan" name="editTindakan">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary" onclick="simpanEditTindakan()">Simpan</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     // Fungsi untuk menampilkan detail tindakan
@@ -139,53 +104,4 @@
         var myModal = new bootstrap.Modal(document.getElementById('tindakanDetailsModal'));
         myModal.show();
     }
-
-    // Fungsi untuk menampilkan modal edit tindakan
-    function editTindakanModal(tindakanId, tindakan) {
-        // Isi formulir edit dengan data yang tepat
-        document.getElementById("editTindakanId").value = tindakanId;
-        document.getElementById("editTindakan").value = tindakan;
-
-        // Tampilkan modal edit tindakan
-        var editTindakanModal = new bootstrap.Modal(document.getElementById('editTindakanModal'));
-        editTindakanModal.show();
-    }
-
-    // Fungsi untuk menyimpan perubahan pada tindakan yang diedit
-    // Fungsi untuk menyimpan perubahan pada tindakan yang diedit
-    function simpanEditTindakan() {
-        // Mendapatkan nilai tindakan yang diedit dari input
-        var editedTindakan = document.getElementById('editTindakan').value;
-
-        // Mendapatkan ID tindakan yang akan diubah
-        var tindakanId = document.getElementById('editTindakanId').value;
-
-        // Kirim data perubahan tindakan ke backend melalui AJAX
-        $.ajax({
-            type: "POST", // Ubah metode menjadi POST
-            url: "/tindakan/" + tindakanId,
-            data: {
-                _token: "{{ csrf_token() }}",
-                _method: "PUT", // Tambahkan parameter _method dengan nilai PUT
-                tindakan: editedTindakan
-            },
-            success: function(response) {
-                // Handle respons dari backend, misalnya tampilkan pesan sukses atau perbarui tampilan
-                alert("Perubahan tindakan berhasil disimpan!");
-                // Lakukan tindakan lain setelah penyimpanan berhasil, misalnya refresh halaman atau perbarui tampilan
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                // Tangani kesalahan jika terjadi
-                console.error(xhr.responseText);
-                alert("Terjadi kesalahan saat menyimpan perubahan tindakan.");
-            }
-        });
-    }
-</script>
-<!-- Memuat Bootstrap dari CDN -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
 </script>

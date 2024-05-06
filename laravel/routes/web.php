@@ -20,20 +20,18 @@ use Illuminate\Support\Facades\Route;
 // route login
 Route::get('/login',[AuthController::class,'login'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class,'procesLogin']);
-Route::get('/logout',[AuthController::class,'logout']);
 
 // route register
 Route::get('/register', [UserController::class, 'index'])->name('register');
 Route::post('/register', [UserController::class, 'store'])->name('register');
 
 // route home halaman utama
-Route::get('/', [AuthController::class, 'index'])->name('home');
 
 // route dashboard
 Route::middleware(['userAkses'])->group(function(){
-    Route::get('/home', function(){
+    Route::get('/', function(){
         return view('home');
-    })->middleware('auth:dokters,web,operators');
+    });
     Route::get('/dashboard/data-dokter', [DokterController::class, 'dataDokter'])->name('dashboard.data-dokter');
     Route::get('/dashboard/data-pasien', [UserController::class, 'dataPasien'])->name('dashboard.data-pasien');
     Route::get('/dashboard/tambah-dokter', [DokterController::class, 'showDokterRegistrationForm'])->name('register.dokter.form');
@@ -45,8 +43,11 @@ Route::middleware(['userAkses'])->group(function(){
     Route::put('/rekam-medis/{id}', [RekamMedisController::class, 'update']);
     Route::get('/dashboard',[RekamMedisController::class,'showRekamMedis']);
     Route::get('/dashboard/tindakan', [TindakanController::class, 'viewTindakan']);
+    Route::get('/tindakan', [TindakanController::class, 'index']);
     Route::post('/tindakan', [TindakanController::class, 'store']);
     Route::get('/tindakan/check/{rekam_medis_id}', 'TindakanController@checkTindakan');
     Route::get('/tindakan/{id}/edit', [TindakanController::class, 'edit'])->name('tindakan.edit');
     Route::put('/tindakan/{id}', [TindakanController::class, 'update'])->name('tindakan.update');
+    Route::get('/home', [AuthController::class, 'index'])->name('home');
 });
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

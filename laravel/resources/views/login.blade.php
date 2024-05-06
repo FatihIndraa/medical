@@ -56,6 +56,11 @@
                     </ul>
                 </div>
             @endif
+            @if (session('success'))
+                <div class="alert alert-success mt-3" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="mb-3">
@@ -70,6 +75,7 @@
                     <button name="submit" type="submit" class="btn btn-primary btn-block">Login</button>
                 </div>
             </form>
+
             <div class="text-center">
                 <p>Belum punya akun? <a href="/register">Daftar sekarang</a></p>
             </div>

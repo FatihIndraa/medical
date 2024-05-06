@@ -17,6 +17,6 @@ class RekamMedis extends Model
         return $this->belongsTo(Dokter::class);
     }
     public function tindakan(){
-        return $this->belongsTo('tindakan');
+        return $this->belongsTo(tindakan::class);
     }
 }

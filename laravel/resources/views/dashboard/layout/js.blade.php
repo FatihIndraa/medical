@@ -93,9 +93,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="submit" class="btn btn-primary"
-                    onclick="tambahTindakan('{{ $rekam->id }}')">Simpan</button>
+                @if ($rekam)
+                    <button type="submit" class="btn btn-primary"
+                        onclick="tambahTindakan('{{ $rekam->id }}')">Simpan</button>
+                @else
+                    <button type="submit" class="btn btn-primary" disabled>Simpan</button>
+                @endif
             </div>
+
         </div>
     </div>
 </div>

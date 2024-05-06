@@ -115,7 +115,11 @@
                             @endauth
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-left"></i>
+                                    Logout</button>
+                            </form>
                         </ul>
                     </div>
                 </div>

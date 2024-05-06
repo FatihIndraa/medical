@@ -8,6 +8,11 @@
                     <h1 class="mb-0">Tambah Keluhan</h1>
                 </div>
                 <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success mt-3" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <form action="/dashboard/tambah-rekam-medis" method="POST">
                         @csrf
                         <div class="mb-3">
@@ -28,7 +33,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="telp" class="form-label">Nomor yang bisa dihubungi</label>
-                            <input type="text" class="form-control" id="telp" name="telp" pattern="[0-9]+" title="Hanya boleh diisi dengan angka" required>
+                            <input type="text" class="form-control" id="telp" name="telp" pattern="[0-9]+"
+                                title="Hanya boleh diisi dengan angka" required>
                         </div>
                         <div class="mb-3">
                             <label for="keluhan" class="form-label">Keluhan</label>

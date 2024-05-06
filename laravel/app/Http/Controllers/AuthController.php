@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dokter;
+use App\Models\RekamMedis;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +19,17 @@ class AuthController extends Controller
     }
 
     public function index(){
-        return view('home');
+        // nambah query dokter
+        $users = User::all();
+        $rekamMedis = RekamMedis::all();
+        $dokters = Dokter::all();
+        return view('home', [
+            'title' => 'Tambah Rekam Medis',
+            'active' => 'rekam medis',
+            'users' => $users,
+            'dokters' => $dokters ,
+            'rekamMedis' => $rekamMedis
+        ]);
     }
     /**
      * Process the login request.
@@ -31,19 +44,19 @@ class AuthController extends Controller
         if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('home');
+            return redirect('/home');
         }
 
         if (Auth::guard('dokters')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('home');
+            return redirect('/home');
         }
 
         if (Auth::guard('operators')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('home');
+            return redirect('/home');
         }
 
         return back()->withErrors([
