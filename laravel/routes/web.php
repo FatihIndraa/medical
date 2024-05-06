@@ -48,6 +48,7 @@ Route::middleware(['userAkses'])->group(function(){
     Route::get('/tindakan/check/{rekam_medis_id}', 'TindakanController@checkTindakan');
     Route::get('/tindakan/{id}/edit', [TindakanController::class, 'edit'])->name('tindakan.edit');
     Route::put('/tindakan/{id}', [TindakanController::class, 'update'])->name('tindakan.update');
+    Route::delete('/tindakan/{id}', [TindakanController::class, 'destroy'])->name('tindakan.destroy');
     Route::get('/home', [AuthController::class, 'index'])->name('home');
 });
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -100,4 +100,20 @@ class TindakanController extends Controller
         // Redirect atau kembalikan respons yang sesuai
         return redirect('/dashboard/tindakan')->with('success', 'Tindakan berhasil diperbarui.');
     }
+    public function destroy($id)
+    {
+        try {
+            // Temukan rekam medis berdasarkan ID yang diberikan
+            $tindakan = Tindakan::findOrFail($id);
+            
+            // Hapus rekam medis
+            $tindakan->delete();
+            // Jika berhasil, kembalikan respons dengan pesan sukses
+            return response()->json(['message' => 'Rekam Medis berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika terjadi
+            return response()->json(['message' => 'Terjadi kesalahan saat menghapus rekam medis'], 500);
+        }
+    }
+
 }

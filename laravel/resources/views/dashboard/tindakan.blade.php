@@ -117,7 +117,6 @@
                     @csrf
                     <input type="hidden" id="editTindakanId" name="editTindakanId">
                     <div class="mb-3">
-                        <input type="hidden" id="editTindakanId" name="editTindakanId">
                         <label for="editTindakan" class="form-label">Tindakan</label>
                         <input type="text" class="form-control" id="editTindakan" name="editTindakan">
                     </div>
@@ -157,7 +156,6 @@
     }
 
     // Fungsi untuk menyimpan perubahan pada tindakan yang diedit
-    // Fungsi untuk menyimpan perubahan pada tindakan yang diedit
     function simpanEditTindakan() {
         // Mendapatkan nilai tindakan yang diedit dari input
         var editedTindakan = document.getElementById('editTindakan').value;
@@ -188,9 +186,20 @@
         });
     }
 </script>
-<!-- Memuat Bootstrap dari CDN -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+<script>
+    function deleteTindakan(tindakanId) {
+        if (confirm("Apakah Anda yakin ingin menghapus rekam medis ini?")) {
+            axios.delete('/tindakan/' + tindakanId)
+                .then(function(response) {
+                    console.log(response);
+                    alert('Tindakan berhasil dihapus');
+                    window.location.reload();
+                })
+                .catch(function(error) {
+                    console.error(error);
+                    alert('Terjadi kesalahan saat menghapus rekam medis.');
+                });
+        }
+    }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
