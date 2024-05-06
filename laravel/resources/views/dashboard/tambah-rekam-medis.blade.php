@@ -8,11 +8,7 @@
                     <h1 class="mb-0">Tambah Keluhan</h1>
                 </div>
                 <div class="card-body">
-                    @if (session('success'))
-                        <div class="alert alert-success mt-3" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+
                     <form action="/dashboard/tambah-rekam-medis" method="POST">
                         @csrf
                         <div class="mb-3">
