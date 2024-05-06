@@ -30,6 +30,16 @@
                     </thead>
                     <tbody>
                         @foreach ($tindakans as $tindakan)
+                            @php
+                                // Filter data rekam medis berdasarkan dokter terautentikasi
+                                if (
+                                    auth()->guard('dokters')->check() &&
+                                    $tindakan->rekam_medis->dokter_id !== auth()->guard('dokters')->user()->id
+                                ) {
+                                    continue; // Lewati jika dokter tidak terkait dengan rekam medis ini
+                                }
+                            @endphp
+
                             <tr>
                                 <td>{{ $tindakan->rekam_medis->user->name }}</td>
                                 <td>{{ $tindakan->rekam_medis->dokter->name }}</td>

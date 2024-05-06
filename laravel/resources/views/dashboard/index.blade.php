@@ -28,8 +28,17 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Di dalam loop foreach untuk menampilkan rekam medis -->
                         @foreach ($rekamMedis as $rekam)
                             @php
+                                // Filter data rekam medis berdasarkan dokter terautentikasi
+                                if (
+                                    auth()->guard('dokters')->check() &&
+                                    $rekam->dokter_id !== auth()->guard('dokters')->user()->id
+                                ) {
+                                    continue; // Lewati jika dokter tidak terkait dengan rekam medis ini
+                                }
+
                                 // Batasi keluhan menjadi maksimal 10 kata
                                 $keluhan = $rekam->keluhan;
                                 $wordCount = str_word_count($keluhan);

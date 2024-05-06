@@ -16,16 +16,18 @@ class RekamMedisController extends Controller
     public function index()
     {
         // Ambil semua data pengguna
-        $users = User::all();
-        // Ambil semua data dokter
-        $dokters = Dokter::all();
-        // Tampilkan view dan teruskan data ke view
-        return view('dashboard.tambah-rekam-medis', [
-            'title' => 'Tambah Rekam Medis',
-            'active' => 'rekam medis',
-            'users' => $users,
-            'dokters' => $dokters 
-        ]);
+        if (Auth::guard('dokters')->check()) {
+            // Ambil hanya data rekam medis yang terkait dengan pasien yang sedang login
+            $rekamMedis = RekamMedis::whereHas('user', function ($query) {
+                $query->where('id', Auth::guard('dokters')->user()->id);
+            })->get();
+        } 
+        // Jika user yang login adalah operator atau web, tampilkan semua data rekam medis
+        else {
+            $rekamMedis = RekamMedis::all();
+        }
+    
+        return view('dashboard.rekam-medis.index', compact('rekamMedis'));
     }
     public function showRekamMedis()
     {
