@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Dokter;
+use App\Models\tindakan;
 
 class RekamMedis extends Model
 {
@@ -14,5 +15,8 @@ class RekamMedis extends Model
     }
     public function dokter(){
         return $this->belongsTo(Dokter::class);
+    }
+    public function tindakan(){
+        return $this->belongsTo('tindakan');
     }
 }

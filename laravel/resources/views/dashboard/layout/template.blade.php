@@ -72,11 +72,26 @@
                                     <i class="fs-4 bi-people"></i> <span class="ms-1">Data Dokter</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/dashboard/tindakan" class="nav-link align-middle">
+                                    <i class="fs-4 bi-people"></i> <span class="ms-1">Tindakan</span>
+                                </a>
+                            </li>
                         @endauth
                         @auth('dokters')
                             <li class="nav-item">
-                                <a href="#submenu1" class="nav-link align-middle" data-bs-toggle="collapse">
-                                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1">Tindakan</span>
+                                <a href="/dashboard/data-pasien" class="nav-link align-middle">
+                                    <i class="fs-4 bi-people"></i> <span class="ms-1">Data Pasien</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/dashboard/data-dokter" class="nav-link align-middle">
+                                    <i class="fs-4 bi-people"></i> <span class="ms-1">Data Dokter</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/dashboard/tindakan" class="nav-link align-middle">
+                                    <i class="fs-4 bi-people"></i> <span class="ms-1">Tindakan</span>
                                 </a>
                             </li>
                         @endauth
@@ -110,8 +125,7 @@
         </div>
     </div>
 
-    @include('dashboard.layout.js')
-    
+
 </body>
 
 </html>

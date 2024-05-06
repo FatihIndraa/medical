@@ -50,7 +50,7 @@ class UserController extends Controller
 
         User::create($validatedData);
 
-        return redirect('/')->with('success', 'Pendaftaran Berhasil!! Silakan Masuk');
+        return redirect('/login')->with('success', 'Pendaftaran Berhasil!! Silakan Masuk');
     }
 
     /**

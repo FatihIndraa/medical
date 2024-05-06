@@ -50,6 +50,7 @@ class RekamMedisController extends Controller
             'dokters' => $dokters, 
         ]);
     }
+    
     public function store(Request $request)
     {
         // Validasi data yang diterima dari request

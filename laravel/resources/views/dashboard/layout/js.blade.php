@@ -40,7 +40,7 @@
                 <form id="editPatientForm" data-rekam-medis-id="" method="PUT">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" id="userId"> 
+                    <input type="hidden" id="userId">
                     <div class="mb-3">
                         <label for="editNamaPasien" class="form-label">Nama Pasien</label>
                         <input type="text" class="form-control" id="editNamaPasien" disabled>
@@ -74,6 +74,35 @@
     </div>
 </div>
 
+<div class="modal fade" id="tambahTindakanModal" tabindex="-1" aria-labelledby="tambahTindakanModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tambahTindakanModalLabel">Tambah Tindakan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="tambahTindakanForm">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="tambahTindakan" class="form-label">Tindakan</label>
+                        <input type="text" class="form-control" id="tambahTindakan">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary"
+                    onclick="tambahTindakan('{{ $rekam->id }}')">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     // Fungsi untuk menampilkan detail pasien
@@ -102,7 +131,7 @@
             option.text = dokter.name;
             option.value = dokter.id;
             if (dokter.id === dokterId) {
-                option.selected = true; 
+                option.selected = true;
             }
             select.appendChild(option);
         });
@@ -130,7 +159,7 @@
 
         // Ambil data yang diedit dari formulir
         var userId = document.getElementById("userId").value;
-        var rekamMedisId = this.getAttribute("data-rekam-medis-id"); 
+        var rekamMedisId = this.getAttribute("data-rekam-medis-id");
 
         var nama = document.getElementById("editNamaPasien").value;
         var dokterId = document.getElementById("editNamaDokter").value;
@@ -144,8 +173,8 @@
                 dokter: dokterId,
                 keluhan: keluhan,
                 telp: telp,
-                jenis_kelamin: jenisKelamin, 
-                alamat: alamat 
+                jenis_kelamin: jenisKelamin,
+                alamat: alamat
             })
             .then(function(response) {
                 console.log(response);
@@ -160,6 +189,48 @@
             });
     });
 </script>
+<script>
+    function tambahTindakanModal(rekamMedisId) {
+        // Set rekamMedisId to modal data attribute
+        document.getElementById('tambahTindakanForm').setAttribute('data-rekam-medis-id', rekamMedisId);
+
+        // Show the modal
+        var tambahTindakanModal = new bootstrap.Modal(document.getElementById('tambahTindakanModal'));
+        tambahTindakanModal.show();
+    }
+
+    function tambahTindakan() {
+        // Mendapatkan nilai tindakan dari input
+        var tindakan = document.getElementById('tambahTindakan').value;
+
+        // Mendapatkan rekamMedisId dari atribut data pada formulir
+        var rekamMedisId = document.getElementById('tambahTindakanForm').getAttribute('data-rekam-medis-id');
+
+        // Kirim permintaan AJAX untuk menyimpan tindakan
+        $.ajax({
+            type: "POST",
+            url: "/tindakan",
+            data: {
+                _token: "{{ csrf_token() }}",
+                rekam_medis_id: rekamMedisId,
+                tindakan: tindakan
+            },
+            success: function(response) {
+                // Tampilkan pesan sukses atau perbarui tampilan sesuai kebutuhan
+                alert("Tindakan berhasil ditambahkan!");
+                // Contoh: Perbarui tampilan jika diperlukan
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                // Tangani kesalahan jika ada
+                console.error(xhr.responseText);
+                alert("Terjadi kesalahan. Tindakan gagal ditambahkan.");
+            }
+        });
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     function deletePatient(rekamMedisId) {
         if (confirm("Apakah Anda yakin ingin menghapus rekam medis ini?")) {
@@ -177,7 +248,7 @@
     }
 </script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
 </script>
-

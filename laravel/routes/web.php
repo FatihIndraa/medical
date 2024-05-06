@@ -2,6 +2,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\RekamMedisController;
+use App\Http\Controllers\TindakanController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,6 @@ Route::middleware(['userAkses'])->group(function(){
     Route::get('/home', function(){
         return view('home');
     })->middleware('auth:dokters,web,operators');
-    
     Route::get('/dashboard/data-dokter', [DokterController::class, 'dataDokter'])->name('dashboard.data-dokter');
     Route::get('/dashboard/data-pasien', [UserController::class, 'dataPasien'])->name('dashboard.data-pasien');
     Route::get('/dashboard/tambah-dokter', [DokterController::class, 'showDokterRegistrationForm'])->name('register.dokter.form');
@@ -44,4 +44,9 @@ Route::middleware(['userAkses'])->group(function(){
     Route::delete('/rekam-medis/{id}', [RekamMedisController::class, 'destroy']);
     Route::put('/rekam-medis/{id}', [RekamMedisController::class, 'update']);
     Route::get('/dashboard',[RekamMedisController::class,'showRekamMedis']);
+    Route::get('/dashboard/tindakan', [TindakanController::class, 'viewTindakan']);
+    Route::post('/tindakan', [TindakanController::class, 'store']);
+    Route::get('/tindakan/check/{rekam_medis_id}', 'TindakanController@checkTindakan');
+    Route::get('/tindakan/{id}/edit', [TindakanController::class, 'edit'])->name('tindakan.edit');
+    Route::put('/tindakan/{id}', [TindakanController::class, 'update'])->name('tindakan.update');
 });
