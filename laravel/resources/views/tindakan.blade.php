@@ -22,6 +22,11 @@
                     <tbody>
                         @foreach ($tindakans as $tindakan)
                             @php
+                                // Check if rekam_medis exists for this tindakan
+                                if (!$tindakan->rekam_medis) {
+                                    continue; // Skip this iteration if rekam_medis is null
+                                }
+
                                 // Filter data rekam medis berdasarkan dokter terautentikasi
                                 if (
                                     auth()->guard('web')->check() &&
