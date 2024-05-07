@@ -34,7 +34,6 @@ class RekamMedisController extends Controller
         $rekamMedis = RekamMedis::all();
         // Ambil semua data dokter
         $dokters = Dokter::all();
-        // Jika pengguna adalah dokter atau operator, izinkan mereka melihat semua data rekam medis
         if (Auth::guard('operators')->check() || Auth::guard('dokters')->check()) {
             $rekamMedis = RekamMedis::all();
         } else {
@@ -67,7 +66,7 @@ class RekamMedisController extends Controller
         
         // Set user_id sesuai dengan kondisi
         if (Auth::guard('web')->check()) {
-            $rekamMedis->user_id = Auth::id(); // Set user_id sesuai dengan pengguna yang sedang login
+            $rekamMedis->user_id = Auth::id(); 
         } else {
             $rekamMedis->user_id = $validatedData['user_id'];
         }

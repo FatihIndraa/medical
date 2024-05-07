@@ -49,6 +49,9 @@
                 <div class="col-lg-4">
                     <form action="{{ url('/dashboard/tambah-rekam-medis') }}" method="POST">
                         @csrf
+                        @auth
+                            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                        @endauth
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama User</label>
                             <input type="text" class="form-control" id="name" name="name"
