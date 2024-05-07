@@ -53,10 +53,10 @@
                                         <i class="bi bi-eye"></i> Lihat
                                     </button>
                                     @if (auth()->guard('operators')->check() || auth()->guard('dokters')->check())
-                                        <button class="btn btn-warning btn-sm"
-                                            onclick="editTindakanModal('{{ $tindakan->id }}', '{{ $tindakan->tindakan }}')">
-                                            <i class="bi bi-pencil"></i> Edit
-                                        </button>
+                                    <button class="btn btn-warning btn-sm"
+                                    onclick="editTindakanModal('{{ $tindakan->id }}', '{{ $tindakan->tindakan }}')">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </button>
                                         <button class="btn btn-danger btn-sm"
                                             onclick="deleteTindakan('{{ $tindakan->id }}')">
                                             <i class="bi bi-trash"></i> Hapus
@@ -105,7 +105,7 @@
 </div>
 <!-- Modal untuk mengedit tindakan -->
 <div class="modal fade" id="editTindakanModal" tabindex="-1" aria-labelledby="editTindakanModalLabel"
-    aria-hidden="true">
+    aria-hidden="true">>
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -149,7 +149,6 @@
         // Isi formulir edit dengan data yang tepat
         document.getElementById("editTindakanId").value = tindakanId;
         document.getElementById("editTindakan").value = tindakan;
-
         // Tampilkan modal edit tindakan
         var editTindakanModal = new bootstrap.Modal(document.getElementById('editTindakanModal'));
         editTindakanModal.show();
@@ -203,3 +202,7 @@
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- Tambahkan JavaScript Bootstrap (jQuery required) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
