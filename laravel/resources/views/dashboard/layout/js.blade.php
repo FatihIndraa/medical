@@ -93,12 +93,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                @if ($rekam)
-                    <button type="submit" class="btn btn-primary"
-                        onclick="tambahTindakan('{{ $rekam->id }}')">Simpan</button>
-                @else
-                    <button type="submit" class="btn btn-primary" disabled>Simpan</button>
-                @endif
+                @if ($rekamMedis->isNotEmpty()) <!-- Check if $rekamMedis is not empty -->
+    <button type="submit" class="btn btn-primary" onclick="tambahTindakan('{{ $rekamMedis->first()->id }}')">Simpan</button>
+@else
+    <button type="submit" class="btn btn-primary" disabled>Simpan</button>
+@endif
+
             </div>
 
         </div>

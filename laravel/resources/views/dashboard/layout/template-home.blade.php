@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary py-3">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url('/home') }}">
                 <i class="bi bi-heart-fill me-2"></i> Medical
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navcol-2">
@@ -28,7 +28,7 @@
                                 <b>Selamat datang, {{ Auth::guard('web')->user()->name }}</b>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ url('/dashboard') }}"><i
+                                <li><a class="dropdown-item" href="{{"/dashboard"}}"><i
                                             class="bi bi-calendar-check"></i> My Dashboard</a></li>
                                 <li>
                                 </li>
