@@ -16,7 +16,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://source.unsplash.com/featured/?medical');
+            background-image: url('{{ asset('foto/spencer-davis-s4_g2TCyNHM-unsplash.jpg') }}');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
